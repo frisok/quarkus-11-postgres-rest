@@ -1,5 +1,6 @@
 package org.friso.groceries.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ public class Groceries extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_generator")
     private Long id;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "groceries_grocery_item",
             joinColumns = @JoinColumn(name = "groceries_id"),
             inverseJoinColumns = @JoinColumn(name = "grocery_item_id")
@@ -23,6 +24,7 @@ public class Groceries extends PanacheEntityBase {
     private Set<GroceryItem> groceryItems;
 
     @Column(name = "date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate date;
 
     public Groceries() {

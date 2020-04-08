@@ -35,6 +35,9 @@ public class GroceriesResource {
         return result != null ? Response.ok(result).build() : Response.status(Response.Status.NOT_FOUND).build();
     }
 
+    /**
+     * curl --header "Content-Type: application/json" --request POST --data '{"date":"01-02-2020"}' http://localhost:8080/groceries/edit
+     */
     @POST
     @Path("/edit")
     public Response edit(final Groceries groceries) {
@@ -42,6 +45,9 @@ public class GroceriesResource {
         return result ? Response.ok().build() : Response.notModified().build();
     }
 
+    /**
+     * curl --header "Content-Type: application/json" --request POST 'http://localhost:8080/groceries/additem?groceries=31&item=22'
+     */
     @POST
     @Path("/additem")
     public Response addItem(@QueryParam("groceries") final Long GroceriesId, @QueryParam("item") final Long itemId) {
